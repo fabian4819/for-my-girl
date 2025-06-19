@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Heart, Calendar, MapPin, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { Heart, Calendar, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
 import type { Photo } from '../types';
 

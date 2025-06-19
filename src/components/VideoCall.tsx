@@ -25,7 +25,7 @@ export const VideoCall: React.FC<VideoCallProps> = ({ className }) => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   
   const localVideoRef = useRef<HTMLVideoElement>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
+//   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     return () => {
