@@ -1,60 +1,69 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Heart, Calendar, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { Heart, Calendar, ChevronLeft, ChevronRight, Sparkles, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import type { Photo } from '../types';
 
-// Dummy data - ganti dengan foto kalian yang sebenarnya
-const dummyPhotos: Photo[] = [
+// Import foto dari assets
+import photo1 from '../assets/1.jpeg';
+import photo2 from '../assets/2.jpeg';
+import photo3 from '../assets/3.jpeg';
+import photo4 from '../assets/4.jpeg';
+import photo5 from '../assets/5.jpeg';
+import photo6 from '../assets/6.jpeg';
+import photo7 from '../assets/7.jpeg';
+
+// Data foto dengan path lokal
+const photos: Photo[] = [
   {
     id: 1,
-    url: 'https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=300&fit=crop',
-    title: 'Pertemuan Pertama',
-    date: '14 Februari 2023',
-    description: 'Hari dimana semuanya dimulai... Saat pertama kali mata kita bertemu 💕'
+    url: photo1,
+    title: 'Funtopia',
+    date: '13 Mei 2025',
+    description: 'kita main seruuu banget di funtopia, ini pas naik keretaaa 💕'
   },
   {
     id: 2,
-    url: 'https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop',
-    title: 'Kencan Pertama',
-    date: '20 Februari 2023',
-    description: 'Makan malam pertama kita berdua. Kamu cantik sekali malam itu ✨'
+    url: photo2,
+    title: 'Parangtritis',
+    date: '21 April 2025',
+    description: 'kita 2 hari jalan-jalan di jogjaa, seru gaa tp belom official waktu itu wehehe ✨'
   },
   {
     id: 3,
-    url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
-    title: 'Jalan-jalan ke Pantai',
-    date: '15 Maret 2023',
-    description: 'Sunrise di pantai bersama, moment paling romantis yang pernah ada 🌅'
+    url: photo3,
+    title: 'Pura Mangkunegaran',
+    date: '14 Juni 2025',
+    description: 'first time jalan bareng di soloo, seru banget di pura bareng kamu 🌅'
   },
   {
     id: 4,
-    url: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop',
-    title: 'Liburan Bersama',
-    date: '10 Mei 2023',
-    description: 'Trip pertama kita ke luar kota. Banyak tawa dan kenangan indah 🏖️'
+    url: photo4,
+    title: 'Nonton Bareng',
+    date: '1 Mei 2025',
+    description: 'first time nonton bioskop bareng, nontonnya komang, kamuu yang request ahahaa 🏖️'
   },
   {
     id: 5,
-    url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop',
-    title: 'Anniversary',
-    date: '14 Agustus 2023',
-    description: 'Merayakan 6 bulan bersama dengan dinner romantis 🥂'
+    url: photo5,
+    title: 'Lika Liku',
+    date: '19 April 2025',
+    description: 'FIRST DATEE KITAAA, SERU YAA NGOBROL LANGSUNG 🥂'
   },
   {
     id: 6,
-    url: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=300&fit=crop',
-    title: 'Hari Spesial',
-    date: '25 Desember 2023',
-    description: 'Natal pertama kita bersama, dengan banyak hadiah dan cinta ❄️'
+    url: photo6,
+    title: 'UPTOWN',
+    date: '1 Mei 2025',
+    description: 'Kita eksplor BSB terus ke uptown di situ kita officiall finally ahahaa setelah bbrp bulan itu ❄️'
   },
   {
     id: 7,
-    url: 'https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?w=400&h=300&fit=crop',
-    title: 'Moment Terbaru',
-    date: '1 Januari 2024',
-    description: 'Tahun baru, resolusi baru, tapi cinta kita tetap sama ❤️'
+    url: photo7,
+    title: 'Funtopia Versi 2',
+    date: '13 Mei 2025',
+    description: 'masi di funtopia, fotonya bagus jadi aku pasang ajaa wehehee ❤️'
   }
 ];
 
@@ -67,16 +76,16 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextPhoto = () => {
-    setCurrentIndex((prev) => (prev + 1) % dummyPhotos.length);
+    setCurrentIndex((prev) => (prev + 1) % photos.length);
   };
 
   const prevPhoto = () => {
-    setCurrentIndex((prev) => (prev - 1 + dummyPhotos.length) % dummyPhotos.length);
+    setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
   };
 
   const openPhoto = (photo: Photo) => {
     setSelectedPhoto(photo);
-    setCurrentIndex(dummyPhotos.findIndex(p => p.id === photo.id));
+    setCurrentIndex(photos.findIndex(p => p.id === photo.id));
   };
 
   const closePhoto = () => {
@@ -97,68 +106,83 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
         </p>
       </div>
 
-      {/* Timeline */}
-      <div className="relative">
-        {/* Timeline Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-pink-400 via-purple-500 to-pink-400 h-full"></div>
-
-        {/* Photos */}
-        <div className="space-y-16">
-          {dummyPhotos.map((photo, index) => (
-            <div
-              key={photo.id}
-              className={cn(
-                "relative animate-slide-in-left",
-                index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-8"
-              )}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              {/* Timeline Dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-pink-500 rounded-full border-4 border-background z-10">
-                <div className="absolute inset-0 bg-pink-400 rounded-full animate-ping"></div>
+      {/* Photo Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {photos.map((photo, index) => (
+          <Card
+            key={photo.id}
+            className={cn(
+              "glass-effect border-pink-500/30 hover:border-pink-500/60 transition-all duration-300 cursor-pointer transform hover:scale-105 group",
+              // Random heights untuk tampilan yang lebih menarik
+              index % 4 === 0 ? "lg:row-span-2" : "",
+              index % 3 === 1 ? "md:mt-8" : "",
+              index % 5 === 2 ? "lg:mt-12" : ""
+            )}
+            onClick={() => openPhoto(photo)}
+            style={{
+              animationDelay: `${index * 0.1}s`
+            }}
+          >
+            <CardContent className="p-0 relative overflow-hidden">
+              {/* Photo */}
+              <div className="relative overflow-hidden">
+                <img
+                  src={photo.url}
+                  alt={photo.title}
+                  className={cn(
+                    "w-full object-cover group-hover:scale-110 transition-transform duration-500",
+                    // Varied heights
+                    index % 4 === 0 ? "h-80 lg:h-96" : "h-64"
+                  )}
+                />
+                
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute top-4 right-4">
+                    <Sparkles className="w-6 h-6 text-yellow-400 animate-sparkle" />
+                  </div>
+                </div>
               </div>
+              
+              {/* Content */}
+              <div className="p-4">
+                <CardHeader className="p-0 mb-3">
+                  <CardTitle className="text-lg font-bold gradient-text line-clamp-1">
+                    {photo.title}
+                  </CardTitle>
+                </CardHeader>
+                
+                <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-sm">{photo.date}</span>
+                </div>
+                
+                <p className="text-muted-foreground text-sm line-clamp-2">
+                  {photo.description}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-              {/* Photo Card */}
-              <Card 
-                className={cn(
-                  "glass-effect border-pink-500/30 hover:border-pink-500/60 transition-all duration-300 cursor-pointer transform hover:scale-105",
-                  index % 2 === 0 ? "md:mr-8" : "md:ml-0"
-                )}
-                onClick={() => openPhoto(photo)}
-              >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden rounded-t-lg">
-                    <img
-                      src={photo.url}
-                      alt={photo.title}
-                      className="w-full h-64 object-cover hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <Sparkles className="w-6 h-6 text-yellow-400 animate-sparkle" />
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <CardHeader className="p-0 mb-4">
-                      <CardTitle className="text-xl font-bold gradient-text">
-                        {photo.title}
-                      </CardTitle>
-                    </CardHeader>
-                    
-                    <div className="flex items-center gap-2 text-muted-foreground mb-3">
-                      <Calendar className="w-4 h-4" />
-                      <span className="text-sm">{photo.date}</span>
-                    </div>
-                    
-                    <p className="text-muted-foreground">
-                      {photo.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </div>
+      {/* Add floating hearts around the grid */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        {[...Array(8)].map((_, i) => (
+          <Heart
+            key={i}
+            className={cn(
+              "absolute text-pink-400/20 animate-float",
+              "w-6 h-6"
+            )}
+            style={{
+              left: `${10 + (i * 12)}%`,
+              top: `${20 + ((i % 3) * 25)}%`,
+              animationDelay: `${i * 0.8}s`,
+              animationDuration: `${3 + (i % 2)}s`
+            }}
+          />
+        ))}
       </div>
 
       {/* Photo Modal */}
@@ -169,8 +193,8 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
               <CardContent className="p-0">
                 <div className="relative">
                   <img
-                    src={dummyPhotos[currentIndex].url}
-                    alt={dummyPhotos[currentIndex].title}
+                    src={photos[currentIndex].url}
+                    alt={photos[currentIndex].title}
                     className="w-full h-96 object-cover rounded-t-lg"
                   />
                   
@@ -179,18 +203,18 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
                     onClick={prevPhoto}
                     variant="secondary"
                     size="icon"
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 rounded-full"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 rounded-full bg-black/50 hover:bg-black/70 border-0"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-5 h-5 text-white" />
                   </Button>
                   
                   <Button
                     onClick={nextPhoto}
                     variant="secondary"
                     size="icon"
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full bg-black/50 hover:bg-black/70 border-0"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-5 h-5 text-white" />
                   </Button>
                   
                   {/* Close Button */}
@@ -200,32 +224,43 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
                     size="icon"
                     className="absolute top-4 right-4 rounded-full"
                   >
-                    ✕
+                    <X className="w-5 h-5" />
                   </Button>
+                  
+                  {/* Photo Counter */}
+                  <div className="absolute bottom-4 left-4 bg-black/50 px-3 py-1 rounded-full">
+                    <span className="text-white text-sm">
+                      {currentIndex + 1} / {photos.length}
+                    </span>
+                  </div>
                 </div>
                 
                 <div className="p-6">
                   <h3 className="text-2xl font-bold gradient-text mb-2">
-                    {dummyPhotos[currentIndex].title}
+                    {photos[currentIndex].title}
                   </h3>
                   
                   <div className="flex items-center gap-2 text-muted-foreground mb-4">
                     <Calendar className="w-4 h-4" />
-                    <span>{dummyPhotos[currentIndex].date}</span>
+                    <span>{photos[currentIndex].date}</span>
                   </div>
                   
                   <p className="text-muted-foreground text-lg">
-                    {dummyPhotos[currentIndex].description}
+                    {photos[currentIndex].description}
                   </p>
                   
+                  {/* Photo Indicators */}
                   <div className="flex justify-center mt-6">
                     <div className="flex gap-2">
-                      {dummyPhotos.map((_, index) => (
-                        <div
+                      {photos.map((_, index) => (
+                        <button
                           key={index}
+                          onClick={() => setCurrentIndex(index)}
                           className={cn(
-                            "w-2 h-2 rounded-full transition-all",
-                            index === currentIndex ? "bg-pink-500" : "bg-gray-600"
+                            "w-3 h-3 rounded-full transition-all hover:scale-125",
+                            index === currentIndex 
+                              ? "bg-pink-500 scale-125" 
+                              : "bg-gray-600 hover:bg-gray-500"
                           )}
                         />
                       ))}
@@ -237,6 +272,23 @@ export const PhotoTimeline: React.FC<PhotoTimelineProps> = ({ className }) => {
           </div>
         </div>
       )}
+
+      {/* Bottom Message */}
+      <div className="text-center mt-16">
+        <Card className="glass-effect border-pink-500/30 max-w-2xl mx-auto">
+          <CardContent className="p-6">
+            <Heart className="w-8 h-8 text-pink-400 mx-auto mb-4 animate-pulse-heart" />
+            <h3 className="text-xl font-bold gradient-text mb-2">
+              Untuk Cinta Hidupku
+            </h3>
+            <p className="text-muted-foreground">
+              Setiap kenangan bersama adalah harta yang tak ternilai. 
+              Terima kasih telah membuat hidup ini penuh warna dan kebahagiaan. 
+              Happy Birthday, my love! 💕
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
